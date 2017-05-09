@@ -1,0 +1,3 @@
+AuthUserFile /var/www/Sender/.htpasswd
+AuthName "Please Log In"
+AuthType Basic
