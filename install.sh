@@ -1,4 +1,4 @@
-mv config/config.ini.backup config/config.ini
+cp config/config.ini.backup config/config.ini
 
 mkdir sent/
 chmod 777 sent/
