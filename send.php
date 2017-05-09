@@ -1,7 +1,7 @@
 <?php
 
-include_once $_SERVER['DOCUMENT_ROOT']."classes/Utils.php";
-include_once $_SERVER['DOCUMENT_ROOT']."classes/Email.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/classes/Utils.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/classes/Email.php";
 
 // get varibles from the config file
 $configs = Utils::getConfigs();
@@ -26,7 +26,7 @@ $images = empty($_POST['images']) ? array() : unserialize($_POST['images']);
 // download images to the temp folder
 $tmpImags = array();
 foreach ($images as $image) {
-	$fileName = $_SERVER['DOCUMENT_ROOT']."temp/".$image->name;
+	$fileName = $_SERVER['DOCUMENT_ROOT']."/temp/".$image->name;
 	file_put_contents($fileName, base64_decode($image->content));
 	$tmpImags[] = $fileName;
 }
@@ -34,7 +34,7 @@ foreach ($images as $image) {
 // download attachments to the temp folder
 $tmpAttachs = array();
 foreach ($attachments as $attachment) {
-	$fileName = $_SERVER['DOCUMENT_ROOT']."temp/".$attachment->name;
+	$fileName = $_SERVER['DOCUMENT_ROOT']."/temp/".$attachment->name;
 	file_put_contents($fileName, base64_decode($attachment->content));
 	$tmpAttachs[] = $fileName;
 }
