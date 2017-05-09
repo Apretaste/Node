@@ -1,8 +1,6 @@
-aliases/*
-vendor/*
-mail/*
 logs/*
 temp/*
+sent/*
 nbproject/*
 .settings/*
 .buildpath

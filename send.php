@@ -11,6 +11,11 @@ $configKey = $configs['general']['key'];
 if($configKey != $_POST['key']) die('{"code":"215", "message":"bad authentication"}');
 
 // get variables from the POST
+$host = $_POST['host'];
+$user = $_POST['user'];
+$pass = $_POST['pass'];
+$from = $_POST['from'];
+$id = $_POST['id'];
 $messageid = $_POST['messageid'];
 $to = $_POST['to'];
 $subject = $_POST['subject'];
@@ -19,27 +24,28 @@ $attachments = empty($_POST['attachments']) ? array() : unserialize($_POST['atta
 $images = empty($_POST['images']) ? array() : unserialize($_POST['images']);
 
 // download images to the temp folder
-$tempImages = array();
+$tmpImags = array();
 foreach ($images as $image) {
 	$fileName = $_SERVER['DOCUMENT_ROOT']."temp/".$image->name;
 	file_put_contents($fileName, base64_decode($image->content));
-	$tempImages[] = $fileName;
+	$tmpImags[] = $fileName;
 }
 
 // download attachments to the temp folder
-$tempAttachments = array();
+$tmpAttachs = array();
 foreach ($attachments as $attachment) {
 	$fileName = $_SERVER['DOCUMENT_ROOT']."temp/".$attachment->name;
 	file_put_contents($fileName, base64_decode($attachment->content));
-	$tempAttachments[] = $fileName;
+	$tmpAttachs[] = $fileName;
 }
 
 // Create Email object and send email
-$email = Email::newEmail($to, $subject, $body, $messageid, $tempAttachments, $tempImages);
-$response = $email->send();
+$email = Email::factory($from, $to, $subject, $body, $id, $messageid, $tmpAttachs, $tmpImags);
+$response = $email->send($host, $user, $pass);
 
 // save the log
-Utils::saveLog($response['email']);
+Utils::saveLog($email);
 
 // return response structure
+$response['email'] = $email;
 echo json_encode($response);
