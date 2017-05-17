@@ -60,6 +60,7 @@ class Email {
 		$mail->setSubject($this->subject);
 		$mail->setHtmlBody($this->body);
 		$mail->setReturnPath($this->from);
+		$mail->setHeader('X-Mailer', '');
 		$mail->setHeader('Sender', $this->from);
 		$mail->setHeader('In-Reply-To', $this->messageid);
 		$mail->setHeader('References', $this->messageid);

@@ -7,7 +7,7 @@ $nodeName = $configs['general']['name'];
 
 // welcome message
 echo "<h1>Welcome to $nodeName</h1>";
-echo "<p>Last 100 transactions [<a href='browse/'>Browse</a>]</p>";
+echo "<p>Last 100 transactions [<a href='browse/'>Browse</a>] | [<a href='test.php'>Test</a>]</p>";
 
 // get the error logs file
 $logfile = $_SERVER['DOCUMENT_ROOT']."/logs/email.log";
