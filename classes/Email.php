@@ -67,7 +67,8 @@ class Email {
 
 		// add images to the template
 		foreach ($this->images as $image) {
-			$mail->addEmbeddedFile($image);
+			$inline = $mail->addEmbeddedFile($image);
+			$inline->setHeader("Content-ID", basename($image));
 		}
 
 		// add attachments
