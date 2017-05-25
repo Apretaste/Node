@@ -81,7 +81,7 @@ class Email {
 			$mailer->send($mail, false);
 		} catch (Exception $e) {
 			$this->error = $e->getMessage();
-			return array("code"=>"500", "message"=>$this->error);
+			return array("code"=>"504", "message"=>$this->error);
 		}
 
 		// return ok message
