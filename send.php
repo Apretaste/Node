@@ -40,8 +40,15 @@ foreach ($attachments as $attachment) {
 }
 
 // Create Email object and send email
-$email = Email::factory($from, $to, $subject, $body, $id, $messageid, $tmpAttachs, $tmpImags);
-$response = $email->send($host, $user, $pass);
+try{
+	$email = Email::factory($from, $to, $subject, $body, $id, $messageid, $tmpAttachs, $tmpImags);
+	$response = $email->send($host, $user, $pass);
+} catch (Exception $e) {
+	$response = new stdClass();
+	$response->code = "599";
+	$response->message = $e->getMessage();
+	$email->error = $e->getMessage();
+}
 
 // save the log
 Utils::saveLog($email);
