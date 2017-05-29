@@ -58,7 +58,7 @@ class Email {
 		$mail->setFrom($this->from);
 		$mail->addTo($this->to);
 		$mail->setSubject($this->subject);
-		$mail->setHtmlBody($this->body);
+		$mail->setHtmlBody($this->body, false);
 		$mail->setReturnPath($this->from);
 		$mail->setHeader('X-Mailer', '');
 		$mail->setHeader('Sender', $this->from);
@@ -67,13 +67,17 @@ class Email {
 
 		// add images to the template
 		foreach ($this->images as $image) {
-			$inline = $mail->addEmbeddedFile($image);
-			$inline->setHeader("Content-ID", basename($image));
+			if (file_exists($image))
+			{
+				$inline = $mail->addEmbeddedFile($image);
+				$inline->setHeader("Content-ID", basename($image));
+			}
 		}
 
 		// add attachments
 		foreach ($this->attachments as $attachment) {
-			$mail->addAttachment($attachment);
+			if (file_exists($attachment))
+				$mail->addAttachment($attachment);
 		}
 
 		// send email
