@@ -86,7 +86,7 @@ class Email {
 
 		// return ok message
 		$this->sent = date("Y-m-d H:i:s");
-		return array("code"=>"200", "message"=>"Email sent");
+		return array("code"=>"200", "message"=>"Sent from {$this->from}");
 	}
 
 	/**
