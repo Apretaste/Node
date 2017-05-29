@@ -67,13 +67,17 @@ class Email {
 
 		// add images to the template
 		foreach ($this->images as $image) {
-			$inline = $mail->addEmbeddedFile($image);
-			$inline->setHeader("Content-ID", basename($image));
+			if (file_exists($image))
+			{
+				$inline = $mail->addEmbeddedFile($image);
+				$inline->setHeader("Content-ID", basename($image));
+			}
 		}
 
 		// add attachments
 		foreach ($this->attachments as $attachment) {
-			$mail->addAttachment($attachment);
+			if (file_exists($attachment))
+				$mail->addAttachment($attachment);
 		}
 
 		// send email
