@@ -58,7 +58,7 @@ class Email {
 		$mail->setFrom($this->from);
 		$mail->addTo($this->to);
 		$mail->setSubject($this->subject);
-		$mail->setHtmlBody($this->body);
+		$mail->setHtmlBody($this->body, false);
 		$mail->setReturnPath($this->from);
 		$mail->setHeader('X-Mailer', '');
 		$mail->setHeader('Sender', $this->from);
